@@ -28,6 +28,12 @@ services:
     image: yandex/clickhouse-server:21.3.4.25 # LTS
     container_name: clickhouse
     restart: always
+    volumes:
+      - ./clickhouse/config.xml:/etc/clickhouse-server/config.xml
+    expose:
+      - 9363
+    ports:
+      - "9363:9363"
     ulimits:
      nproc: 65535
      nofile:
