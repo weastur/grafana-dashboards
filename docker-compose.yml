@@ -32,3 +32,11 @@ services:
      nofile:
       soft: 262144
       hard: 262144
+  clickhouse-benchmark:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-benchmark
+    entrypoint:
+      - /bin/bash
+    command:
+      - -c
+      - "echo 'SELECT * FROM system.numbers LIMIT 10000000 OFFSET 10000000' | clickhouse-benchmark -h clickhouse"
