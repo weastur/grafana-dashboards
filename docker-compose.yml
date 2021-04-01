@@ -27,6 +27,7 @@ services:
   clickhouse:
     image: yandex/clickhouse-server:21.3.4.25 # LTS
     container_name: clickhouse
+    restart: always
     ulimits:
      nproc: 65535
      nofile:
@@ -35,6 +36,7 @@ services:
   clickhouse-benchmark:
     image: yandex/clickhouse-server:21.3.4.25  # LTS
     container_name: clickhouse-benchmark
+    restart: always
     entrypoint:
       - /bin/bash
     command:
