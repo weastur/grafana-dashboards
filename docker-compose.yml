@@ -25,7 +25,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
   clickhouse:
-    image: yandex/clickhouse-server
+    image: yandex/clickhouse-server:21.3.4.25 # LTS
     container_name: clickhouse
     ulimits:
      nproc: 65535
@@ -33,7 +33,7 @@ services:
       soft: 262144
       hard: 262144
   clickhouse-benchmark:
-    image: yandex/clickhouse-server
+    image: yandex/clickhouse-server:21.3.4.25  # LTS
     container_name: clickhouse-benchmark
     entrypoint:
       - /bin/bash
