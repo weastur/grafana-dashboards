@@ -18,3 +18,11 @@ ClickHouse overview dashboard for internal exporter
 1. `Max data points` set to 200 for all graph panel
 1. Table with overall info for selected instances
 1. Annotation for restart event
+
+
+## Screenshots
+
+![1](screenshots/1.png)
+![2](screenshots/2.png)
+![3](screenshots/3.png)
+![4](screenshots/4.png)
