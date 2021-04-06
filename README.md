@@ -6,7 +6,7 @@ Set of useful Grafana dashboards
 
 ## List
 
-1. [ClickHouse](dashboards/clickhouse/clickhouse.json)
+1. [ClickHouse](dashboards/clickhouse)
 
 ## Development
 
