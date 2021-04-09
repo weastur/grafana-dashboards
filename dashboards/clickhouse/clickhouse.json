@@ -55,6 +55,7 @@
         "name": "Restarts",
         "showIn": 0,
         "step": "15s",
+        "tagKeys": "instance",
         "titleFormat": "Restart",
         "useValueForTime": false
       }
@@ -65,7 +66,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1617737528619,
+  "iteration": 1617958425073,
   "links": [
     {
       "asDropdown": false,
@@ -11200,10 +11201,10 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "Yes",
-          "value": "1"
+          "text": "No",
+          "value": "null"
         },
-        "description": null,
+        "description": "Be aware of the points limit per timeseries for Grafana. This option may not work for a time range > 24h",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -11212,12 +11213,12 @@
         "name": "peaks",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "Yes",
             "value": "1"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "No",
             "value": "null"
           }
@@ -11230,12 +11231,12 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ClickHouse",
   "uid": "thEkJB_Mz",
-  "version": 35
+  "version": 39
 }
