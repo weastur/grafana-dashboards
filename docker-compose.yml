@@ -50,3 +50,61 @@ services:
     command:
       - -c
       - "echo 'SELECT * FROM system.numbers LIMIT 10000000 OFFSET 10000000' | clickhouse-benchmark -h clickhouse"
+  etcd1: &etcd
+    image: weastur/patroni:2.0.2
+    environment:
+      ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+      ETCD_INITIAL_CLUSTER: etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_INITIAL_CLUSTER_TOKEN: tutorial
+    container_name: demo-etcd1
+    hostname: etcd1
+    command: etcd -name etcd1 -initial-advertise-peer-urls http://etcd1:2380
+  etcd2:
+    <<: *etcd
+    container_name: demo-etcd2
+    hostname: etcd2
+    command: etcd -name etcd2 -initial-advertise-peer-urls http://etcd2:2380
+  etcd3:
+    <<: *etcd
+    container_name: demo-etcd3
+    hostname: etcd3
+    command: etcd -name etcd3 -initial-advertise-peer-urls http://etcd3:2380
+  haproxy:
+    image: weastur/patroni:2.0.2
+    env_file: patroni/patroni.env
+    hostname: haproxy
+    container_name: demo-haproxy
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    command: haproxy
+    environment: &haproxy_env
+      ETCDCTL_ENDPOINTS: http://etcd1:2379,http://etcd2:2379,http://etcd3:2379
+      PATRONI_ETCD3_HOSTS: "'etcd1:2379','etcd2:2379','etcd3:2379'"
+      PATRONI_SCOPE: demo
+  patroni1:
+    image: weastur/patroni:2.0.2
+    env_file: patroni/patroni.env
+    hostname: patroni1
+    container_name: demo-patroni1
+    environment:
+      <<: *haproxy_env
+      PATRONI_NAME: patroni1
+  patroni2:
+    image: weastur/patroni:2.0.2
+    env_file: patroni/patroni.env
+    hostname: patroni2
+    container_name: demo-patroni2
+    environment:
+      <<: *haproxy_env
+      PATRONI_NAME: patroni2
+  patroni3:
+    image: weastur/patroni:2.0.2
+    env_file: patroni/patroni.env
+    hostname: patroni3
+    container_name: demo-patroni3
+    environment:
+      <<: *haproxy_env
+      PATRONI_NAME: patroni3
